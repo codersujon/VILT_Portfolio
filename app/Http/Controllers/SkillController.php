@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Skill;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,25 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        // validation
+        $request->validate([
+            'name' => ['required', 'min:3'],
+            'image' => ['required', 'image']
+        ]);
+
+
+        // Image have
+        if($request->hasFile('image')){
+            $image = $request->file('image')->store('skills');
+            Skill::create([
+                'name' => $request->name,
+                'image' => $image,
+            ]);
+            return redirect()->route('skills.index')->with('success', "New Skill Created!");
+        }
+
+        return redirect()->back();
     }
 
     /**

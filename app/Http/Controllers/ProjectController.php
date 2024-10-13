@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use App\Models\Skill;
@@ -67,24 +68,48 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Project $project)
     {
-        //
+        $skills = Skill::all();
+        return Inertia::render('Projects/Edit', compact('project', 'skills'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Project $project)
     {
-        //
+        $image = $project->image;
+
+        // validation
+        $request->validate([
+            'name' => ['required', 'min:3'],
+            'skill_id' => ['required'],
+        ]);
+
+        if($request->hasFile('image')){
+            Storage::delete($image); // Delete Previous Image
+            $image = $request->file('image')->store('projects');
+        }
+
+        // Update Project
+        $project->update([
+            'name' => $request->name,
+            'skill_id' => $request->skill_id,
+            'project_url' => $request->project_url,
+            'image' => $image,
+        ]);
+
+        return redirect()->route('projects.index')->with('success', 'Project Updated Successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Project $project)
     {
-        //
+        Storage::delete($project->image); // Delete Image
+        $project->delete();
+        return redirect()->back();
     }
 }

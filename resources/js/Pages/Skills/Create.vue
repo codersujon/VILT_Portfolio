@@ -8,7 +8,6 @@
     import { router } from '@inertiajs/vue3'
     import Swal from 'sweetalert2';
 
-
     /**
      * useForm from @inertiajs/vue3
      */
@@ -18,29 +17,33 @@
     });
 
     /**
-     * Store Skill
+     * Store Skill Using Async and await and try catch method
      */
-    const storeSkill = () =>{
-        router.post(route('skills.store'), form, {
+    const storeSkill = async () =>{
+        try {
+            await router.post(route('skills.store'), form, {
 
-            onSuccess: page =>{
-                
-                Swal.fire({
-                    toast: true,
-                    position: "top-end",
-                    icon: "success",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    },
-                    title: page.props.flash.success
-                });
-            }
+                onSuccess: page =>{
+                    
+                    Swal.fire({
+                        toast: true,
+                        position: "top-end",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        },
+                        title: page.props.flash.success
+                    });
+                }
 
-        });
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 </script>                       

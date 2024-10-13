@@ -17,6 +17,10 @@
         image: "",
     });
 
+    const props = defineProps({
+        errors: Array
+    })
+
     /**
      * Store Skill Using Async and await and try catch method
      */
@@ -75,7 +79,7 @@
                             v-model="form.name"/>
                         <InputError 
                             class="mt-2" 
-                            :message="form.errors.name" 
+                            :message="props.errors.name" 
                         />
                     </div>
 
@@ -91,7 +95,7 @@
                             class="mt-1 block w-full" 
                             @input="form.image = $event.target.files[0]"  
                         />
-                        <InputError class="mt-2" :message="form.errors.image" />
+                        <InputError class="mt-2" :message="props.errors.image" />
                     </div>
 
 

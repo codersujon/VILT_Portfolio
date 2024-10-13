@@ -16,9 +16,11 @@
     });
     
     // Props
-    defineProps({
-        skills: Array
+    const props = defineProps({
+        skills: Array,
+        errors: Array
     });
+
 
     /**
      * Store Project
@@ -76,8 +78,14 @@
                             class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                             v-model="form.skill_id"
                         >
-                            <option :value="skill.id" v-for="skill in skills" :key="skill.id">{{ skill.name }}</option>
+                            <option :value="skill.id" v-for="skill in props.skills" :key="skill.id">{{ skill.name }}</option>
                         </select>
+
+                        <InputError 
+                            class="mt-2" 
+                            :message="props.errors.skill_id" 
+                        />
+                        
                     </div>
                      <!-- Project Name -->
                      <div class="mb-5">
@@ -92,7 +100,7 @@
                             v-model="form.name"/>
                         <InputError 
                             class="mt-2" 
-                            :message="form.errors.name" 
+                            :message="props.errors.name" 
                         />
                     </div>
 
@@ -109,7 +117,7 @@
                             v-model="form.project_url"/>
                         <InputError 
                             class="mt-2" 
-                            :message="form.errors.project_url" 
+                            :message="props.errors.project_url" 
                         />
                     </div>
 
@@ -125,7 +133,7 @@
                             class="mt-1 block w-full rounded-none" 
                             @input="form.image = $event.target.files[0]"  
                         />
-                        <InputError class="mt-2" :message="form.errors.image" />
+                        <InputError class="mt-2" :message="props.errors.image" />
                     </div>
 
 

@@ -24,7 +24,7 @@
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="flex justify-end m-2 p-2">
-                    <Link :href="route('skills.create')" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-md">
+                    <Link :href="route('skills.create')" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md">
                         New  Skill
                     </Link>
                 </div>
@@ -49,7 +49,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(skill, i) in skills.data" :key="skill.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <tr v-if="skills.data" v-for="(skill, i) in skills.data" :key="skill.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ skill.id }}
                                 </th>
@@ -57,12 +57,17 @@
                                     {{ skill.name }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    <img :src="skill.image" :alt="skill.name" class="w-20 h-20 rounded-full">
+                                    <img :src="skill.image" :alt="skill.name" class="w-16 h-16 rounded-full">
                                 </td>
                                 <td class="px-6 py-4">
                                     <a href="" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2.5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit</a>
 
                                     <a href="" class="mx-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-2.5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</a>
+                                </td>
+                            </tr>
+                            <tr v-else>
+                                <td colspan="4">
+                                    <p class="text-center text-blue-600 py-2 text-xl">No List Found</p>
                                 </td>
                             </tr>
                         </tbody>

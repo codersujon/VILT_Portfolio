@@ -13,7 +13,8 @@ class SkillController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Skills/Index');
+        $skills = Skill::all();
+        return Inertia::render('Skills/Index', compact('skills'));
     }
 
     /**
@@ -29,7 +30,6 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         // validation
         $request->validate([
             'name' => ['required', 'min:3'],

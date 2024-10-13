@@ -1,6 +1,7 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import FrontendLayout from '@/Layouts/Frontend.vue';
+import Hero from '@/Components/Frontend/Hero.vue';
 
 </script>
 
@@ -8,6 +9,7 @@ import FrontendLayout from '@/Layouts/Frontend.vue';
     <Head title="CoderS" />
     <FrontendLayout>
         <!-- Hero Primary -->
+         <Hero />
         <!-- promote tail-100 -->
         <!-- About Secondary-->
         <!-- Skills Tail-100-->

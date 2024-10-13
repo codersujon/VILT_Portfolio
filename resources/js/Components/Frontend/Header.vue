@@ -3,7 +3,7 @@
     const showMobileMenu = ref("false");
 </script>
 <template>
-    <nav class="bg-light-secondary border-gray-200 dark:bg-gray-900">
+    <nav class="bg-light-secondary border-gray-200 dark:bg-dark-primary">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="https://codersujon.com/" class="flex items-center space-x-3 rtl:space-x-reverse" target="_blank">
                 <img src="../../../../public/img/logo.png" class="h-8" alt="Flowbite Logo" />

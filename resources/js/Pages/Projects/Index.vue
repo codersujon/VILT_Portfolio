@@ -1,17 +1,19 @@
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     import { Head, Link } from '@inertiajs/vue3';
-
+    
     /**
      * Projects Props
      */
     defineProps({
-        projects: Object
+        projects: Object,
     });
+
+
 </script>
 <template>
     <Head title="Projects " />
-    
+    {{ $page.props.flash.success }}
     <AuthenticatedLayout>
         <template #header>
             <h2

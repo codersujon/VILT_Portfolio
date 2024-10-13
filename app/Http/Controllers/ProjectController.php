@@ -100,7 +100,7 @@ class ProjectController extends Controller
             'image' => $image,
         ]);
 
-        return redirect()->route('projects.index')->with('success', 'Project Updated Successfully!');
+        return redirect()->route('projects.index')->with('success', 'Project updated successfully!');;
     }
 
     /**

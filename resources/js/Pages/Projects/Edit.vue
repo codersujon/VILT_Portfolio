@@ -8,11 +8,13 @@
     import { router } from '@inertiajs/vue3'
     import Swal from 'sweetalert2';
 
+
      // Props
      const props = defineProps({
         skills: Array,
         project: Object,
-        errors: Array
+        errors: Object,
+        flash: Object,
     });
 
     const form = useForm({
@@ -29,38 +31,40 @@
 
      const updateProject = async () =>{
         try {
-            await router.post(`/projects/${props.project.id}`, {
+            const page = await router.post(`/projects/${props.project.id}`, {
                 _method: 'put',
                 name: form.name,
                 image: form.image,
                 skill_id: form.skill_id,
-                project_url: form.project_url
+                project_url: form.project_url,
+            });
 
-                }).then(page =>{
-                        
-                        if(page.props.flash.success){
+            console.log(page); // Check the response structure
 
-                            Swal.fire({
-                                toast: true,
-                                position: "top-end",
-                                icon: "success",
-                                showConfirmButton: false,
-                                timer: 3000,
-                                timerProgressBar: true,
-                                didOpen: (toast) => {
-                                    toast.onmouseenter = Swal.stopTimer;
-                                    toast.onmouseleave = Swal.resumeTimer;
-                                },
-                                title: page.props.flash.success
-                            });
-                        }else{
-                            console.log('No success message found');
-                        }
+            // Handle success
+            if (page.props && page.props.flash && page.props.flash.success) {
+                Swal.fire({
+                    toast: true,
+                    position: "top-end",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    },
+                    title: page.props.flash.success
                 });
-            }catch(error){
-                console.log(error);
+            } else {
+                console.log('No success message found');
+            }
+        } catch (error) {
+            console.log('Error:', error);
         }
-     }
+      
+    }
+        
 
 </script>
 <template>
@@ -77,7 +81,7 @@
 
         <div class="py-12">
             <div class="mx-auto max-w-2xl sm:px-6 lg:px-8">
-                <form @submit.prevent="updateProject()" class="p-10 shadow  bg-white rounded">
+                <form @submit.prevent="updateProject" class="p-10 shadow  bg-white rounded">
                     <!-- Select Skills -->
                     <div class="mb-5">
                         <InputLabel 
@@ -152,7 +156,7 @@
                       <!-- Store Btn -->
                       <div class="mt-4 flex items-center">
                         <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing" class=" hover:bg-green-600">
-                            Update Project
+                            Update
                         </PrimaryButton>
                     </div>
 

@@ -9,44 +9,54 @@
     import { router } from '@inertiajs/vue3'
     import Swal from 'sweetalert2';
 
-    /**
-     * useForm from @inertiajs/vue3
-     */
-    const form = useForm({
-        name: "",
-        image: null,
+  
+    const props = defineProps({
+        errors: Array,
+        skill: Object
     });
 
-    const props = defineProps({
-        errors: Array
-    })
+      /**
+     * useForm from @inertiajs/vue3
+     */
+     const form = useForm({
+        name: props.skill?.name,
+        image: null,
+    });
 
     /**
      * Store Skill Using Async and await and try catch method
      */
-    const storeSkill = async () =>{
+    const updateSkill = async () =>{
         try {
-            await router.post(route('skills.store'), form, {
 
-                onSuccess: page =>{
+            await router.post(`/skills/${props.skill.id}`, {
+
+                _method: 'put',
+                name: form.name,
+                image: form.image,
+
+            }).then(page =>{
                     
-                    Swal.fire({
-                        toast: true,
-                        position: "top-end",
-                        icon: "success",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.onmouseenter = Swal.stopTimer;
-                            toast.onmouseleave = Swal.resumeTimer;
-                        },
-                        title: page.props.flash.success
-                    });
-                }
+                    if(page.props.flash.success){
 
+                        Swal.fire({
+                            toast: true,
+                            position: "top-end",
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            },
+                            title: page.props.flash.success
+                        });
+                    }else{
+                        console.log('No success message found');
+                    }
             });
-        } catch (error) {
+        }catch(error){
             console.log(error);
         }
     }
@@ -54,18 +64,18 @@
 </script>                       
 <template>
 
-    <Head title="New Skill " />
+    <Head title="Edit Skill " />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                New Skill
+                Edit Skill
             </h2>
         </template>
 
         <div class="py-12">
             <div class="mx-auto max-w-2xl sm:px-6 lg:px-8">
-                <form @submit.prevent="storeSkill()" class="p-10 shadow  bg-white rounded">
+                <form @submit.prevent="updateSkill()" class="p-10 shadow  bg-white rounded">
                     <!-- Name -->
                     <div class="mb-5">
                         <InputLabel 
@@ -102,7 +112,7 @@
                     <!-- Store Btn -->
                     <div class="mt-4 flex items-center">
                         <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing" class=" hover:bg-green-600">
-                            Store
+                            Update Skill
                         </PrimaryButton>
                     </div>
                 </form>

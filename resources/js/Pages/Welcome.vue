@@ -1,9 +1,18 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
-import FrontendLayout from '@/Layouts/Frontend.vue';
-import Hero from '@/Components/Frontend/Hero.vue';
-import Promote from '@/Components/Frontend/Promote.vue';
-import About from '@/Components/Frontend/About.vue';
+    import { Head, Link } from '@inertiajs/vue3';
+    import FrontendLayout from '@/Layouts/Frontend.vue';
+    import Hero from '@/Components/Frontend/Hero.vue';
+    import Promote from '@/Components/Frontend/Promote.vue';
+    import About from '@/Components/Frontend/About.vue';
+    import Skills from '@/Components/Frontend/Skills.vue';
+    
+    import { defineProps } from 'vue';
+    const props = defineProps({
+        skills: {
+            type: Object,
+            required: true,
+        },
+    });
 </script>
 
 <template>
@@ -16,6 +25,7 @@ import About from '@/Components/Frontend/About.vue';
         <!-- About Secondary-->
          <About />
         <!-- Skills Tail-100-->
+         <Skills />
         <!-- Portfolio Primary-->
         <!-- Services Secondary-->
         <!-- Contact Primary -->

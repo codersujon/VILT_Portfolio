@@ -5,13 +5,12 @@
     import Promote from '@/Components/Frontend/Promote.vue';
     import About from '@/Components/Frontend/About.vue';
     import Skills from '@/Components/Frontend/Skills.vue';
+    import Portfolio from '@/Components/Frontend/Portfolio.vue';
     
     import { defineProps } from 'vue';
     const props = defineProps({
-        skills: {
-            type: Object,
-            required: true,
-        },
+        skills: Object,
+        projects: Object
     });
 </script>
 
@@ -25,8 +24,9 @@
         <!-- About Secondary-->
          <About />
         <!-- Skills Tail-100-->
-         <Skills />
+         <Skills :skills="skills"/>
         <!-- Portfolio Primary-->
+         <Portfolio :skills="skills" :projects="projects"/>
         <!-- Services Secondary-->
         <!-- Contact Primary -->
     </FrontendLayout>

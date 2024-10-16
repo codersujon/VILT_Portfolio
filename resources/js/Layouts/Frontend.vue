@@ -7,12 +7,15 @@
 
         <!-- Header -->
         <Header />
+
+        <!-- main -->
         <main class="min-h-screen">
             <slot />
         </main>
 
         <!-- Footer -->
          <Footer />
+         
     </div>
 </template>
 

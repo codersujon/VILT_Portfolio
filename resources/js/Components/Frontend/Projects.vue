@@ -30,12 +30,12 @@
         <nav class="mb-12 border-b-2 border-light-tail-100 dark:text-dark-navy-100">
             <ul class="flex flex-col lg:flex-row justify-evenly items-center">
                 <li class="cursor-pointer capitalize m-4">
-                    <button @click="filterProjects('all')" class="flex text-center px-4 py-2 hover:text-light-tail-500 dark:text-dark-navy-100  rounded-md" :class="[selectedSkill === 'all' ? 'text-light-tail-500 dark:text-dark-navy-100': '']">
+                    <button @click="filterProjects('all')" class="flex bg-black text-white text-center px-4 py-2  dark:text-dark-navy-100  rounded-md" :class="[selectedSkill === 'all' ? 'bg-green-600 dark:text-dark-navy-100': '']">
                         All
                     </button>
                 </li>
                 <li class="cursor-pointer capitalize m-4" v-for="projectSkill in skills.data" :key="projectSkill.id">
-                    <button @click="filterProjects(projectSkill.id)" class="text-black flex text-center px-4 py-2 hover:text-light-tail-500 dark:text-dark-navy-100 rounded-md" :class="[selectedSkill == projectSkill.id ? 'text-light-tail-500 dark:text-dark-navy-100': '']">
+                    <button @click="filterProjects(projectSkill.id)" class="bg-black text-white flex text-center px-4 py-2  dark:text-dark-navy-100 rounded-md" :class="[selectedSkill == projectSkill.id ? 'bg-green-600 dark:text-dark-navy-100': '']">
                         {{ projectSkill.name }}
                     </button>
                 </li>

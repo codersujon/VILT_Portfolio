@@ -4,6 +4,7 @@
     defineProps({
         project: Object
     });
+    
 </script>
 <template>
     <Link :href="project.project_url" class="group flex flex-col items-center text-center cursor-pointer"> 

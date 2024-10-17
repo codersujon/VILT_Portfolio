@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SkillController;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
-
+Route::post('/contact', ContactController::class)->name('contact');
 
 Route::middleware(['auth','verified'])->group(function(){
     Route::get('/dashboard', function(){
